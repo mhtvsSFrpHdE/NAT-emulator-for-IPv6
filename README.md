@@ -28,6 +28,11 @@ Best start by backup your current firewall rules and
 if you only have remote desktop session to the computer.  
 Skip restore default if you can't enable Remote Desktop again.**
 
+If you use Remote Desktop, edit rules under "Remote Desktop" group,  
+limit access range to Private address like VPN address.  
+See `Access control` in FAQ for more information.  
+You may connect remote desktop via VPN, instead of expose 3389 on IPv6 address.
+
 Change your network profile to "Public".  
 You can't have two profiles for different address.  
 In this case, treat your IPv6 network adapter as Public network,  
