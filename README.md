@@ -46,7 +46,7 @@ The result is you don't have any incoming connections
 and should be able to be verified by TCP and UDP port scanner.
 
 Enable required rules manually. They may be  
-Network discovery, Samba file sharing, ICMP ping...
+Network discovery, WINS, Samba file sharing, ICMP ping...
 
 Append your own rules by "New Rule..." to allow your  
 application and service to have incoming connection,  
