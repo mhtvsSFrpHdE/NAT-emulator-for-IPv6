@@ -56,6 +56,9 @@ We discovered delete rules lead to no incoming connections,
 but later some services are broken.  
 Disable is better than delete in this case, can be easily undo.
 
+If "Core Network" is disabled, IPv6 and certain IPv4 feature will broken.  
+For example you can't listen on IPv6 SLAAC address, etc.
+
 ## Access control, Private network with Public profile
 Now all interface with IPv6 address is Public profile.  
 You may have ports only want to expose to Private IPv4 address.  
