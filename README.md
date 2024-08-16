@@ -34,8 +34,9 @@ See `Access control` in FAQ for more information.
 You may connect remote desktop via VPN, instead of expose 3389 on IPv6 address.
 
 Open terminal with admin permission and run `nats.ps1`,  
-script will disable all of your incoming firewall rules.  
+script will preview all of your incoming firewall rules going to be disabled.  
 Rules in "Core Network" and "Remote Desktop" groups are untouched.  
+If you find no errors in preview, run `nats.ps1 -Sure` to apply.  
 The result is you don't have any incoming connections  
 and should be able to be verified by TCP and UDP port scanner.
 
