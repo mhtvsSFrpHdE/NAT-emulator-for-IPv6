@@ -78,7 +78,7 @@ If a rule name contains one or one of the multiple values,
 it will be untouched, otherwize disable it.  
 If you find no errors, create task scheduler task run at startup:
 ```
-powershell -Command "C:\path\to\nats.ps1" -Ignores "CustomRule_","Wireless Display" -Sure
+powershell -ExecutionPolicy Bypass -Command "C:\path\to\nats.ps1" -Ignores "CustomRule_","Wireless Display" -Sure
 ```
 Do not use `powershell -File`, otherwize array input will not work, can't pass multiple values in.
 
