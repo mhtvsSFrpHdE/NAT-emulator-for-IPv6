@@ -67,3 +67,23 @@ For example, IP `192.168.1.x`, mask `255.255.255.0` is `192.168.1.0/24`.
 
 Leave "Remote IP address" untouched (Any IP address), in this case,  
 your rules will not allow ports to be accessed from IPv6 address.
+
+## `dump.ps1`
+You can use this script to determine what process are listening on what IPv4 ports,  
+so you can config IPv4 port forwarder properly for programs lack documents.  
+The script only handle IPv4, for IPv6, add firewall rules by program should fit  
+because there is no NATs.
+
+Example:
+```
+.\dump.ps1 -Hosts 192.168.1.100`
+.\dump.ps1 -Hosts 192.168.1.100,172.16.1.100`
+```
+Hosts parameter to specify one or multiple listen address to filter.  
+`127.0.0.1` and `0.0.0.0` will always append to Hosts.
+
+Example:
+```
+.\dump.ps1 -Hosts 192.168.1.100 -ProcessNames steam
+```
+Once you confirmed the process name, you can filter by process name.
