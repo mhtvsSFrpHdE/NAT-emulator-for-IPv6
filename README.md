@@ -68,6 +68,20 @@ For example, IP `192.168.1.x`, mask `255.255.255.0` is `192.168.1.0/24`.
 Leave "Remote IP address" untouched (Any IP address), in this case,  
 your rules will not allow ports to be accessed from IPv6 address.
 
+## Windows Update keeps enable unwanted rules
+`nats.ps1` has a parameter to filter rules, accept array as input:  
+```
+nats.ps1 -Ignores "CustomRule_"
+nats.ps1 -Ignores "CustomRule_","Wireless Display"
+```
+If a rule name contains one or one of the multiple values,  
+it will be untouched, otherwize disable it.  
+If you find no errors, create task scheduler task run at startup:
+```
+powershell -Command "C:\path\to\nats.ps1" -Ignores "CustomRule_","Wireless Display" -Sure
+```
+Do not use `powershell -File`, otherwize array input will not work, can't pass multiple values in.
+
 ## `dump.ps1`
 You can use this script to determine what process are listening on what IPv4 ports,  
 so you can config IPv4 port forwarder properly for programs lack documents.  
