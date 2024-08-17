@@ -1,12 +1,17 @@
 param(
-    [switch]$Sure = $False
+    [switch]$Sure = $False,
+    [String[]] $Ignores = @()
 )
 $ErrorActionPreference = "Stop"
 
 $inboundRules = Get-NetFirewallRule | Where-Object { ($_.Direction -eq "Inbound") -and ($_.Enabled -eq $True) }
 foreach ($item in $inboundRules) {
-    # Add your own skip condition here
     $userSkipCondition = $False
+    foreach ($ignore in $Ignores){
+        if ($item.DisplayName.Contains($ignore)){
+            $userSkipCondition = $True
+        }
+    }
 
     $hasGroupProperty = $item | Get-Member DisplayGroup
     $skipCoreNetworking = $False
