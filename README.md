@@ -21,9 +21,12 @@ let you can imagine you are using IPv4 NAT,
 with minimal broke to your system and recoverable as needed.
 
 ## How to use
-Best start by backup your current firewall rules and  
-"Restore Default Policy" to delete may unwanted changes.  
-**WARNING: "Export list..." is not backup, look for "Export Policy..." instead.**  
+Best start by backup your current firewall rules  
+**WARNING: "Export list..." is not backup, select root node  
+"Windows Defender Firewall with Advanced Security on Local Computer"   
+then "Action", "Export Policy..." instead.**  
+
+Use root node "Restore Default Policy" to delete may unwanted changes.  
 **WARNING: this will turn off Remote Desktop and you can lock yourself out  
 if you only have remote desktop session to the computer.  
 Skip restore default if you can't enable Remote Desktop again.**
@@ -33,19 +36,24 @@ limit access range to Private address like VPN address.
 See `Access control` in FAQ for more information.  
 You may connect remote desktop via VPN, instead of expose 3389 on IPv6 address.
 
-Open terminal with admin permission and run `nats.ps1`,  
+Open terminal with admin permission and run `nats.ps1  -Ignores "CustomRule_`,  
 script will preview all of your incoming firewall rules going to be disabled.  
 Rules in "Core Network" and "Remote Desktop" groups are untouched.  
+Name your own firewall rules name begin with "CustomRule_" to let them untouched,  
+or add them to "-Ignores" string array parameter.
+
+Add required rules to `-Ignores`. They may be  
+Network discovery, WINS, Samba file sharing, reply to ICMP ping...  
+Detail syntax see FAQ "Filter rules"
+
 If you find no errors in preview, run `nats.ps1 -Sure` to apply.  
-The result is you don't have any incoming connections  
+The result is you don't have unwanted incoming connections  
 and should be able to be verified by TCP and UDP port scanner.
 
-Enable required rules manually. They may be  
-Network discovery, WINS, Samba file sharing, ICMP ping...
-
-Append your own rules by "New Rule..." to allow your  
-application and service to have incoming connection,  
-like how you do port forwarding in IPv4 NAT.
+Once everything tested fine, run `install_nats.bat`  
+to make script run every 24 hours to prevent Windows Update restore rules  
+you may want to modify permission of `nats.ps1`  
+for it to only writeable with admin account
 
 # Troubleshooting (FAQ)
 ## Behind
@@ -68,19 +76,14 @@ For example, IP `192.168.1.x`, mask `255.255.255.0` is `192.168.1.0/24`.
 Leave "Remote IP address" untouched (Any IP address), in this case,  
 your rules will not allow ports to be accessed from IPv6 address.
 
-## Windows Update keeps enable unwanted rules
+## Filter rules
 `nats.ps1` has a parameter to filter rules, accept array as input:  
 ```
 nats.ps1 -Ignores "CustomRule_"
 nats.ps1 -Ignores "CustomRule_","Wireless Display"
 ```
 If a rule name contains one or one of the multiple values,  
-it will be untouched, otherwize disable it.  
-If you find no errors, create task scheduler task run at startup:
-```
-powershell -ExecutionPolicy Bypass -Command "C:\path\to\nats.ps1" -Ignores "CustomRule_","Wireless Display" -Sure
-```
-Do not use `powershell -File`, otherwize array input will not work, can't pass multiple values in.
+it will be untouched, otherwize disable it.
 
 ## `dump.ps1`
 You can use this script to determine what process are listening on what IPv4 ports,  
