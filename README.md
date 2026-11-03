@@ -52,8 +52,12 @@ and should be able to be verified by TCP and UDP port scanner.
 
 Once everything tested fine, run `install_nats.bat`  
 to make script run every 24 hours to prevent Windows Update restore rules  
-you may want to modify permission of `nats.ps1`  
-for it to only writeable with admin account
+
+You may want to modify permission of `nats.ps1`  
+for it to only writeable with admin account  
+Properties, select "Users", Edit, Write set to Deny,  
+Advanced, Owner change to "Administrator"  
+after doing this to change permission back will require admin permission
 
 # Troubleshooting (FAQ)
 ## Behind
